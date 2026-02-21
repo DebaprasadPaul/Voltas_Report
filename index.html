@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Voltas Ltd - Comprehensive Financial Report</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Calibri:wght@400;700&display=swap"
+        rel="stylesheet">
+    <style>
+        /* Base styles incorporating guidelines */
+        body {
+            font-family: 'Calibri', 'Inter', sans-serif;
+            background-color: #F8FAFC;
+            color: #1E293B;
+            font-size: 14px;
+            /* Scaled up from purely 11pt for web readability */
+        }
+
+        .company-name {
+            font-size: 24px;
+            /* Equivalent to larger 14pt print */
+            font-weight: 800;
+        }
+
+        h2,
+        h3 {
+            font-size: 18px;
+            /* Web equivalent of 12pt heading */
+            font-family: 'Inter', sans-serif;
+            font-weight: 700;
+            color: #0F172A;
+            margin-bottom: 0.75rem;
+        }
+
+        /* Excel Data Color Scheme Rules */
+        .txt-assumption {
+            color: #DC2626;
+            font-weight: 500;
+        }
+
+        /* RED */
+        .txt-forecast {
+            color: #16A34A;
+            font-weight: 500;
+        }
+
+        /* GREEN */
+        .txt-historical {
+            color: #1E3A8A;
+            font-weight: 500;
+        }
+
+        /* DARK BLUE */
+        .txt-calc {
+            font-weight: 700;
+            color: #1E293B;
+        }
+
+        /* BOLD BLACK */
+        .txt-link {
+            color: #000000;
+        }
+
+        /* BLACK */
+        .txt-percent {
+            font-style: italic;
+        }
+
+        .chart-container {
+            position: relative;
+            width: 100%;
+            height: 300px;
+        }
+
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 350px;
+            }
+        }
+
+        /* Glassmorphism Cards */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(226, 232, 240, 0.8);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.025);
+            border-radius: 12px;
+        }
+
+        /* Page Breaks for printing */
+        @media print {
+            .page-break {
+                page-break-before: always;
+            }
+
+            body {
+                font-size: 11pt;
+            }
+
+            h2,
+            h3 {
+                font-size: 12pt;
+            }
+
+            .company-name {
+                font-size: 14pt;
+            }
+        }
+    </style>
+</head>
+
+<body class="antialiased">
+
+    <!-- HEADER / SNAPSHOT DASHBOARD -->
+    <header class="bg-[#1E3A8A] text-white py-12 px-6 relative overflow-hidden">
+        <div
+            class="absolute inset-0 opacity-[0.05] bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-white to-transparent">
+        </div>
+        <div class="max-w-6xl mx-auto relative z-10 grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+            <div>
+                <div
+                    class="inline-block py-1 px-3 rounded bg-white/10 border border-white/20 text-white font-medium text-[10px] uppercase tracking-[0.2em] mb-4">
+                    Analytical Intelligence • Forecast Index
+                </div>
+                <h1 class="company-name text-white mb-2 leading-tight">VOLTAS LIMITED (NSE: VOLTAS)</h1>
+                <p class="text-xl md:text-2xl font-light text-blue-100 mb-6">Equity Research & Valuation Framework</p>
+                <div class="grid grid-cols-3 gap-3">
+                    <div class="bg-white/5 backdrop-blur-md rounded border border-white/10 p-3 text-center">
+                        <p class="text-[9px] text-blue-300 uppercase tracking-widest mb-1">CMP</p>
+                        <p class="text-xl font-bold font-inter text-white">₹1,547</p>
+                    </div>
+                    <div class="bg-white/5 backdrop-blur-md rounded border border-white/10 p-3 text-center">
+                        <p class="text-[9px] text-blue-300 uppercase tracking-widest mb-1">Target</p>
+                        <p class="text-xl font-bold font-inter text-[#0EA5E9]">₹2,052</p>
+                    </div>
+                    <div
+                        class="bg-emerald-500/10 backdrop-blur-md rounded border border-emerald-500/30 p-3 text-center">
+                        <p class="text-[9px] text-emerald-300 uppercase tracking-widest mb-1">Upside</p>
+                        <p class="text-xl font-bold font-inter text-emerald-400">+32%</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="glass-card !bg-white/5 !border-white/10 p-6 text-white rounded-2xl">
+                <h3
+                    class="!text-white border-b border-white/10 pb-3 mb-5 text-sm uppercase tracking-widest font-semibold">
+                    Core Model Engine</h3>
+                <div class="space-y-4">
+                    <div class="flex justify-between items-center group cursor-help"
+                        title="Input based on Tier-2/3 expansion strategy">
+                        <span class="text-xs text-blue-100/70">Revenue Growth (CAGR)</span>
+                        <span class="text-xs font-bold text-red-400 txt-percent">18.5%</span>
+                    </div>
+                    <div class="flex justify-between items-center group cursor-help"
+                        title="Projected margin reversion via PLI">
+                        <span class="text-xs text-blue-100/70">Terminal EBITDA Margin</span>
+                        <span class="text-xs font-bold text-red-400 txt-percent">8.2%</span>
+                    </div>
+                    <div class="flex justify-between items-center group cursor-help"
+                        title="Calculated using bottom-up Beta">
+                        <span class="text-xs text-blue-100/70">Weighted Avg Cost of Cap</span>
+                        <span class="text-xs font-bold text-red-400 txt-percent">11.4%</span>
+                    </div>
+                    <div class="flex justify-between items-center group cursor-help" title="Gordon Growth Assumption">
+                        <span class="text-xs text-blue-100/70">Terminal Growth Rate</span>
+                        <span class="text-xs font-bold text-red-400 txt-percent">4.0%</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="max-w-6xl mx-auto px-6 py-10 space-y-20">
+
+        <!-- 1. ABOUT THE COMPANY -->
+        <section id="about">
+            <h2
+                class="uppercase tracking-[0.2em] text-[#1E3A8A] font-extrabold border-b-2 border-gray-100 pb-3 text-sm">
+                01. Sector Context</h2>
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 mt-8">
+                <div class="flex flex-col justify-center">
+                    <h3 class="text-2xl mb-4 font-bold text-slate-800">The Dominance of Voltas</h3>
+                    <p class="mb-6 text-slate-600 leading-relaxed text-base">
+                        Voltas Limited, a Tata Enterprise, operates as the primary beneficiary of India's structural
+                        shift toward residential cooling. With a massive distribution network and high brand equity, the
+                        firm is transitioning from a seasonal AC manufacturer into a year-round home appliance
+                        powerhouse via the Voltbek JV.
+                    </p>
+                    <div class="flex gap-4">
+                        <div class="p-4 bg-slate-50 border border-slate-200 rounded-lg flex-1">
+                            <p class="text-2xl font-bold text-slate-800">19.5%</p>
+                            <p class="text-xs text-slate-500 uppercase">Market Share (RAC)</p>
+                        </div>
+                        <div class="p-4 bg-slate-50 border border-slate-200 rounded-lg flex-1">
+                            <p class="text-2xl font-bold text-slate-800">24k+</p>
+                            <p class="text-xs text-slate-500 uppercase">Distribution Points</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-white p-8 rounded-2xl border border-slate-100 shadow-sm">
+                    <h3 class="text-xs uppercase tracking-widest text-slate-400 mb-6 text-center">Revenue Mix by
+                        Segment</h3>
+                    <div class="chart-container h-[250px]">
+                        <canvas id="revenueBreakupChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. INVESTMENT RATIONALE -->
+        <section id="rationale">
+            <h2
+                class="uppercase tracking-[0.2em] text-[#1E3A8A] font-extrabold border-b-2 border-gray-100 pb-3 text-sm">
+                02. Investment Thesis</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-8">
+                <div
+                    class="p-8 bg-white rounded-2xl border border-slate-100 hover:border-[#0EA5E9] transition-all group">
+                    <div
+                        class="w-10 h-10 bg-blue-50 rounded-lg flex items-center justify-center shrink-0 group-hover:bg-[#0EA5E9] group-hover:text-white transition-colors">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
+                        </svg>
+                    </div>
+                    <h4 class="font-bold text-lg mb-3">Under-Penetrated Market</h4>
+                    <p class="text-sm text-slate-500 leading-relaxed">India's 8% RAC penetration vs China's ~100%
+                        represents a long-term structural growth runway that is essentially secular in nature.</p>
+                </div>
+                <div
+                    class="p-8 bg-white rounded-2xl border border-slate-100 hover:border-emerald-500 transition-all group">
+                    <div
+                        class="w-10 h-10 bg-emerald-50 rounded-lg flex items-center justify-center shrink-0 group-hover:bg-emerald-500 group-hover:text-white transition-colors">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z">
+                            </path>
+                        </svg>
+                    </div>
+                    <h4 class="font-bold text-lg mb-3">Margin Reversion</h4>
+                    <p class="text-sm text-slate-500 leading-relaxed">PLI scheme adoption and capacity scaling at the
+                        Chennai facility are forecasted to drive EBITDA margins from 5.2% back toward the 8% handle by
+                        FY28.</p>
+                </div>
+                <div
+                    class="p-8 bg-white rounded-2xl border border-slate-100 hover:border-amber-500 transition-all group">
+                    <div
+                        class="w-10 h-10 bg-amber-50 rounded-lg flex items-center justify-center shrink-0 group-hover:bg-amber-500 group-hover:text-white transition-colors">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z">
+                            </path>
+                        </svg>
+                    </div>
+                    <h4 class="font-bold text-lg mb-3">Tata Parentage</h4>
+                    <p class="text-sm text-slate-500 leading-relaxed">The implicit trust of the Tata brand acts as a
+                        massive customer acquisition cost (CAC) reducer and a defensive moat in price-sensitive Tier-3
+                        markets.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. FINANCIAL SUMMARY -->
+        <section id="financials">
+            <h2
+                class="uppercase tracking-[0.2em] text-[#1E3A8A] font-extrabold border-b-2 border-gray-100 pb-3 text-sm">
+                03. Fundamental Snapshot</h2>
+            <div class="mt-8 overflow-hidden rounded-2xl border border-slate-200">
+                <table class="w-full text-sm text-left border-collapse">
+                    <thead>
+                        <tr class="bg-slate-50 text-slate-400 text-[10px] uppercase tracking-widest font-bold">
+                            <th class="p-5 border-b border-slate-200">Income Statement (₹ Cr)</th>
+                            <th class="p-5 border-b border-slate-200 text-right">FY24 Actual</th>
+                            <th class="p-5 border-b border-slate-200 text-right text-[#0EA5E9]">FY25 Forecast</th>
+                            <th class="p-5 border-b border-slate-200 text-right text-[#0EA5E9]">FY26 Forecast</th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-white">
+                        <tr class="hover:bg-slate-50/50 transition-colors">
+                            <td class="p-5 font-semibold text-slate-700">Revenue from Operations</td>
+                            <td class="p-5 text-right font-mono text-slate-600">12,481</td>
+                            <td class="p-5 text-right font-mono text-[#0EA5E9]">15,450</td>
+                            <td class="p-5 text-right font-mono text-[#0EA5E9]">18,300</td>
+                        </tr>
+                        <tr class="hover:bg-slate-50/50 transition-colors">
+                            <td class="p-5 font-semibold text-slate-700">EBITDA</td>
+                            <td class="p-5 text-right font-mono text-slate-600">650</td>
+                            <td class="p-5 text-right font-mono text-[#0EA5E9]">1,004</td>
+                            <td class="p-5 text-right font-mono text-[#0EA5E9]">1,244</td>
+                        </tr>
+                        <tr class="hover:bg-slate-50/50 transition-colors bg-slate-50/30">
+                            <td class="p-5 font-bold text-slate-800">Adjusted PAT</td>
+                            <td class="p-5 text-right font-mono text-slate-600">248</td>
+                            <td class="p-5 text-right font-mono text-emerald-600 font-bold">610</td>
+                            <td class="p-5 text-right font-mono text-emerald-600 font-bold">785</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- 4. MODEL ARCHITECTURE & SENSITIVITY -->
+        <section id="architecture" class="page-break">
+            <h2
+                class="uppercase tracking-[0.2em] text-[#1E3A8A] font-extrabold border-b-2 border-gray-100 pb-3 text-sm">
+                04. Model Infrastructure</h2>
+
+            <div class="mt-8 bg-[#0F172A] rounded-3xl p-10 shadow-2xl relative overflow-hidden">
+                <div class="absolute top-0 right-0 p-8 opacity-5">
+                    <svg class="w-64 h-64" fill="white" viewBox="0 0 24 24">
+                        <path
+                            d="M13 3v2h5l-6 6-6-6h5v-2h-7v7h2v-5l6 6-6 6v-5h-2v7h7v-2h-5l6-6 6 6h-5v2h7v-7h-2v5l-6-6 6-6v5h2v-7h-7z" />
+                    </svg>
+                </div>
+
+                <div class="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-16">
+                    <div>
+                        <h3 class="text-white text-3xl font-bold mb-6">Logical Architecture</h3>
+                        <p class="text-slate-400 mb-8 leading-relaxed">Every output in this model is engineered through
+                            a series of structural validators. We move from raw market research into granular revenue
+                            drivers before extracting free cash flows.</p>
+
+                        <div class="space-y-6">
+                            <div class="flex gap-5">
+                                <div
+                                    class="w-12 h-12 rounded-xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center shrink-0">
+                                    <span class="text-blue-400 font-bold">A</span>
+                                </div>
+                                <div>
+                                    <h4 class="text-white font-semibold mb-1">Forecast Logic Tiers</h4>
+                                    <p class="text-slate-500 text-sm">Revenue is projected via volume-mix analysis
+                                        (Tier 1 vs Tier 2 cities) rather than flat percentage extrapolation.</p>
+                                </div>
+                            </div>
+                            <div class="flex gap-5">
+                                <div
+                                    class="w-12 h-12 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center shrink-0">
+                                    <span class="text-emerald-400 font-bold">B</span>
+                                </div>
+                                <div>
+                                    <h4 class="text-white font-semibold mb-1">Error Validation Layers</h4>
+                                    <p class="text-slate-500 text-sm">Hard-coded check sums monitor balance sheet
+                                        parity and cash flow conversion at every forecast node.</p>
+                                </div>
+                            </div>
+                            <div class="flex gap-5">
+                                <div
+                                    class="w-12 h-12 rounded-xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center shrink-0">
+                                    <span class="text-amber-400 font-bold">C</span>
+                                </div>
+                                <div>
+                                    <h4 class="text-white font-semibold mb-1">Cost of Capital Matrix</h4>
+                                    <p class="text-slate-500 text-sm">WACC is derived through bottom-up beta
+                                        calculation and sector-specific risk premiums.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h3 class="text-white text-3xl font-bold mb-6">Sensitivity Testing</h3>
+                        <p class="text-slate-400 mb-8 leading-relaxed">Stress-testing the Target Price against
+                            variations in terminal dynamics. This heatmap identifies the exact corridor of our margin of
+                            safety.</p>
+
+                        <div class="bg-slate-800/50 p-6 rounded-2xl border border-slate-700/50">
+                            <div class="grid grid-cols-4 gap-2 text-center">
+                                <div class="p-2 text-[10px] text-slate-500 uppercase font-bold col-start-2">Term.
+                                    Growth (4.0%)</div>
+                                <div class="p-2 text-[10px] text-slate-500 uppercase font-bold">Term. Growth (4.5%)
+                                </div>
+                                <div class="p-2 text-[10px] text-slate-500 uppercase font-bold">Term. Growth (5.0%)
+                                </div>
+
+                                <div
+                                    class="p-2 text-[10px] text-slate-500 uppercase font-bold flex flex-col justify-center">
+                                    WACC (10.5%)</div>
+                                <div
+                                    class="p-4 bg-emerald-500 text-white rounded-lg font-bold text-xs ring-2 ring-emerald-400 ring-offset-2 ring-offset-[#0F172A]">
+                                    2,250</div>
+                                <div class="p-4 bg-emerald-600 text-white rounded-lg font-bold text-xs ">2,340</div>
+                                <div class="p-4 bg-emerald-700 text-white rounded-lg font-bold text-xs ">2,410</div>
+
+                                <div
+                                    class="p-2 text-[10px] text-slate-500 uppercase font-bold flex flex-col justify-center">
+                                    WACC (11.4%)</div>
+                                <div
+                                    class="p-4 bg-blue-500 text-white rounded-lg font-bold text-xs ring-4 ring-white/20">
+                                    2,052</div>
+                                <div class="p-4 bg-blue-600 text-white rounded-lg font-bold text-xs ">2,110</div>
+                                <div class="p-4 bg-blue-700 text-white rounded-lg font-bold text-xs ">2,185</div>
+
+                                <div
+                                    class="p-2 text-[10px] text-slate-500 uppercase font-bold flex flex-col justify-center">
+                                    WACC (12.5%)</div>
+                                <div class="p-4 bg-amber-600 text-white rounded-lg font-bold text-xs ">1,840</div>
+                                <div class="p-4 bg-amber-700 text-white rounded-lg font-bold text-xs ">1,895</div>
+                                <div class="p-4 bg-rose-700 text-white rounded-lg font-bold text-xs ">1,940</div>
+                            </div>
+                            <p class="text-center text-slate-500 text-[10px] mt-6 tracking-widest uppercase font-bold">
+                                Target Price Sensitivity Matrix (INR)</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="bg-white py-20 px-6 border-t border-slate-100">
+        <div class="max-w-6xl mx-auto text-center">
+            <h2 class="text-slate-800 text-4xl font-extrabold mb-4">Outcomes are engineered, not assumed.</h2>
+            <p class="text-slate-500 max-w-2xl mx-auto mb-10 text-lg">Detailed equity research model built from the
+                ground up, utilizing 3-statement forecasting and multi-scenario DCF mechanics.</p>
+            <div class="inline-flex items-center gap-4 p-2 pl-6 bg-slate-50 rounded-full border border-slate-200">
+                <span class="text-slate-500 font-medium text-sm">Review this model for your desk:</span>
+                <a href="https://www.linkedin.com/in/debaprasad-paul-56a2b8158/" target="_blank"
+                    class="bg-[#1E3A8A] text-white px-6 py-2 rounded-full font-bold text-sm hover:translate-y-[-2px] transition-transform">Connect
+                    on LinkedIn</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Chart Configuration Scripts -->
+    <script>
+        // Set Inter as default font for Charts
+        Chart.defaults.font.family = "'Inter', sans-serif";
+        Chart.defaults.color = "#94a3b8";
+
+        // 1. Revenue Breakup Pie Chart
+        const ctxRev = document.getElementById('revenueBreakupChart').getContext('2d');
+        new Chart(ctxRev, {
+            type: 'doughnut',
+            data: {
+                labels: ['UCP - Cooling', 'EMPS - Projects', 'Others'],
+                datasets: [{
+                    data: [68, 25, 7],
+                    backgroundColor: ['#1E3A8A', '#0EA5E9', '#CBD5E1'],
+                    borderWidth: 0,
+                    hoverOffset: 15
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                cutout: '75%',
+                plugins: {
+                    legend: { position: 'bottom', labels: { boxWidth: 12, padding: 25, usePointStyle: true, font: { weight: '600', size: 10 } } }
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>
